@@ -1,0 +1,20 @@
+{% extends './base.html' %}
+
+{% block post_container %}
+    <h3> Content Page </h3>
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Created Date</td>
+            <td>Modified Date</td>
+        </tr>
+
+        {% for post in posts %}
+            <tr>
+                <td>{{post.title}}</td> 
+                <td>{{post.db_created}}</td>
+                <td>{{post.db_modified}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock post_container %}
