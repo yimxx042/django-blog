@@ -1,6 +1,8 @@
 from django import forms  
+from .models import Post
 
-class PostForm(forms.Form):
-    title = forms.CharField(max_length=50, label='title')
-    content = forms.CharField(label='content', widget=forms.Textarea)
+class PostForm(forms.ModelForm):
     
+    class Meta:
+        model = Post
+        fields = ['title', 'content']   # if wants every form them '__all__'
