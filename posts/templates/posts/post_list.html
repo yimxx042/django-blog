@@ -1,20 +1,28 @@
 {% extends './base.html' %}
+{% load static %}
+<!-- post_list css -->
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/css/post_list.css' %}">
+{% endblock css%}
 
-{% block post_container %}
-    <h3> Content Page </h3>
-    <table>
-        <tr>
-            <td>Title</td>
-            <td>Created Date</td>
-            <td>Modified Date</td>
-        </tr>
+{% block logo_text %}
+    <div id="header">
+        <div class="container">
+            <h1><img src="{% static 'posts/images/headertxt.png' %}"></h1>
+        </div>
+    </div>
+{% endblock logo_text %}
 
+
+{% block content %}
+    <div class="post_container">
         {% for post in posts %}
-            <tr>
-                <td>{{post.title}}</td> 
-                <td>{{post.db_created}}</td>
-                <td>{{post.db_modified}}</td>
-            </tr>
+            <div class="post"><a href="{% url 'post-detail' post.id %}">         
+                <h2 class="title">{{post.title}}</h2>
+                <p class="date">{{post.db_created}}</p>
+                <p class="text">{{post.content|slice:":100"}}</p>
+            </a></div>
         {% endfor %}
-    </table>
-{% endblock post_container %}
+    </div>
+{% endblock content %}
+
