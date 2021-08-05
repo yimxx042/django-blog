@@ -1,22 +1,30 @@
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from django.urls import reverse
 from .models import Post
 from .forms import PostForm
 
 # Create your views here.
 
-def post_list(request):
-    posts = Post.objects.all() #bring all data
-    paginator = Paginator(posts, 6) #first parameter is data list for page, second paremeter is data list for one page
-    curr_page_number = request.GET.get('page') #get how many pages from query string
-    if curr_page_number is None:
-        curr_page_number = 1
-    page = paginator.page(curr_page_number) #get current page from pages
-    return render(request, 'posts/post_list.html', {'page':page})
+# def post_list(request):
+#     posts = Post.objects.all() #bring all data
+#     paginator = Paginator(posts, 6) #first parameter is data list for page, second paremeter is data list for one page
+#     curr_page_number = request.GET.get('page') #get how many pages from query string
+#     if curr_page_number is None:
+#         curr_page_number = 1
+#     page = paginator.page(curr_page_number) #get current page from pages
+#     return render(request, 'posts/post_list.html', {'page':page})
     
+class PostListView(ListView):
+    model = Post 
+    template_name = 'posts/post_list.html'
+    context_object_name = 'posts'
+    ordering = ['-db_created']
+    paginate_by = 6
+    page_kwarg = 'page'
+
 
 
 def post_detail(request, post_id):
