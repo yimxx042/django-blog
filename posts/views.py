@@ -7,12 +7,12 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def post_list(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 6)
-    curr_page_number = request.GET.get('page')
+    posts = Post.objects.all() #bring all data
+    paginator = Paginator(posts, 6) #first parameter is data list for page, second paremeter is data list for one page
+    curr_page_number = request.GET.get('page') #get how many pages from query string
     if curr_page_number is None:
         curr_page_number = 1
-    page = paginator.page(curr_page_number)
+    page = paginator.page(curr_page_number) #get current page from pages
     return render(request, 'posts/post_list.html', {'page':page})
     
 
