@@ -18,6 +18,8 @@
     <div class="btn_post">
         <a href="{% url 'post-create' %}">Write</a>
     </div>
+    {% if posts %}
+    <!-- when there is post -->
     <div class="post_container">
         {% for post in posts %}
             <div class="post"><a href="{% url 'post-detail' post.id %}">         
@@ -27,5 +29,13 @@
             </a></div>
         {% endfor %}
     </div>
+
+    {% else %}
+    <!-- when there is no post -->
+        <div class="blank">
+            <p>There is no contents.<br>Try to make first post </p>
+        </div>
+    {% endif %}
+    
 {% endblock content %}
 
