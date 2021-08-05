@@ -9,6 +9,11 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']   # if wants every form them '__all__'
+        widgets = {'title': forms.TextInput(attrs={
+            'class':'title',
+            'placeholder':'Add Title'}),
+            'content': forms.Textarea(attrs={
+                'placeholder' : 'Add Content'})}
 
     def clean_title(self):
         title = self.cleaned_data['title']
